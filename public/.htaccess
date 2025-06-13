@@ -1,0 +1,44 @@
+# Hide Apache version and PHP information
+Header unset X-Powered-By
+Header always unset X-Powered-By
+Header always set Server "WebServer"
+
+# Disable directory browsing
+Options -Indexes
+
+# Disable access to .htaccess files
+<Files ".htaccess">
+    Require all denied
+</Files>
+
+# Enable URL rewriting
+RewriteEngine On
+
+# Block direct access to index.php and other PHP files with 404
+RewriteCond %{THE_REQUEST} \s/+.*\.php[\s?] [NC]
+RewriteRule ^ - [R=404,L]
+
+# Handle static files (allow direct access)
+RewriteCond %{REQUEST_FILENAME} -f
+RewriteCond %{REQUEST_FILENAME} !\.(php|htaccess)$ [NC]
+RewriteRule ^ - [L]
+
+# Handle static directories
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# Route all other requests to index.php (internal rewrite)
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php [QSA,L]
+
+# Additional security measures
+# Prevent access to common sensitive files
+<FilesMatch "\.(env|git|gitignore|log|sql|md)$">
+    Require all denied
+</FilesMatch>
+
+# Prevent access to backup files
+<FilesMatch "\.(bak|backup|old|orig|save|swp|tmp)$">
+    Require all denied
+</FilesMatch>
