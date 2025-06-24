@@ -7,7 +7,7 @@
 </head>
 <body> 
     <?php foreach($session->getAllFlash() as $type => $message): ?>
-        <li><?= $type ?>: <?= $message ?></li>
+        <li><?= $type ?>: <?= $message[0] ?></li>
     <?php endforeach; ?>
     <ul>
         <?php foreach($users as $user): ?>
