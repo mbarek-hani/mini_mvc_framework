@@ -1,6 +1,8 @@
 <?php
 
-class TestController {
+require_once "../app/Controller.php";
+
+class TestController extends Controller{
     public function show() {
         $this->view("test", [
             "name" => "mbarek",
@@ -9,9 +11,5 @@ class TestController {
 
     public function delete() {
         echo "TestController::delete";
-    }
-
-    private function view($view_name = "", $date = []) {
-        require_once "../views/$view_name.php";
     }
 }

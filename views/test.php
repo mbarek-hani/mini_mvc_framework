@@ -6,6 +6,6 @@
     <title>Test</title>
 </head>
 <body>
-    <h1>Hello <?= $date["name"] ?> from test view</h1>
+    <h1>Hello <?= $data["name"] ?> from test view</h1>
 </body>
 </html>
