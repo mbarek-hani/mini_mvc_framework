@@ -1,25 +1,33 @@
 <?php
 
 class Router{
-    public static function handle($method = 'GET', $path='/', $controller ='', $action = null)
+
+    public static function handle($method = 'GET', $path='/', $controller ='', $action = null): bool
     {
         $currentMethod = $_SERVER['REQUEST_METHOD'];
         $currentUri = $_SERVER['REQUEST_URI'];
         if($currentMethod != $method){
             return false;
         }
+        
         $pattern = '#^'.$path.'$#siD';
-        if(preg_match($pattern,$currentUri)){
-            if(is_callable($controller)){
-                $controller();
+        $matches = null;
+        if(preg_match(pattern: $pattern, subject: $currentUri, matches: $matches)){
+            if(is_callable(value: $controller)){
+
+                array_shift($matches);
+                $controller(...$matches);
             }else{
                 require_once "../controllers/$controller.php";
                 $controller = new $controller();
-                $controller->$action();
+
+                array_shift($matches);
+                $controller->$action(...$matches);
             }
-            exit();
+        }else{
+            return false;
         }
-        return false;
+        exit();
     }
 
     public static function get( $path='/', $controller ='', $action = null)

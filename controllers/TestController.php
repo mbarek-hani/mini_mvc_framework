@@ -36,9 +36,9 @@ class TestController extends Controller{
         echo "done";
     }
 
-    public function delete() {
+    public function delete($id) {
         $user_model = new User($this->pdo);
-        $user_model->delete(101);
-        echo "done";
+        $user_model->delete($id);
+        header("location: /test");
     }
 }
