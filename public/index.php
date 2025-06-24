@@ -3,4 +3,6 @@
 require_once "../app/init.php";
 
 Router::get("/test", "TestController", "show");
-Router::get("/test/delete/[0-9]+", "TestController", "delete");
+Router::get("/test/add", "TestController", "add");
+Router::get("/test/update", "TestController", "update");
+Router::get("/test/delete", "TestController", "delete");

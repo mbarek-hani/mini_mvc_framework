@@ -5,7 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Test</title>
 </head>
-<body>
-    <h1>Hello <?= $data["name"] ?> from test view</h1>
+<body> 
+    <ul>
+        <?php foreach($data["users"] as $user): ?>
+            <li><?= $user->username ?></li>
+        <?php endforeach; ?>
+    </ul>
 </body>
 </html>
