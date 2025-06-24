@@ -27,18 +27,16 @@ class TestController extends Controller{
 
     public function update() {
         $user_model = new User($this->pdo);
-        $user_model->update(101, [
-            "username" => "hanihani12",
-            "first_name" => "mbarek1564",
-            "last_name"=> "hani1564",
-            "email"=> "mbare@hani.com"
-        ]);
-        echo "done";
+        $user_model->update(101, []);
+        $this->session->flashSuccess("user with id 101 was updated successfully");
+        header("location: /test");
+
     }
 
     public function delete($id) {
         $user_model = new User($this->pdo);
         $user_model->delete($id);
+        $this->session->flashSuccess("user with id $id was deleted successfully");
         header("location: /test");
     }
 }

@@ -6,8 +6,11 @@
     <title>Test</title>
 </head>
 <body> 
+    <?php foreach($session->getAllFlash() as $type => $message): ?>
+        <li><?= $type ?>: <?= $message ?></li>
+    <?php endforeach; ?>
     <ul>
-        <?php foreach($data["users"] as $user): ?>
+        <?php foreach($users as $user): ?>
             <li><?= $user->username ?></li>
         <?php endforeach; ?>
     </ul>
