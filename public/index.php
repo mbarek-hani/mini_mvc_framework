@@ -2,6 +2,5 @@
 
 require_once "../app/init.php";
 
-Router::get("/home", function() {
-    echo "hello from home";
-});
+Router::get("/test", "TestController", "show");
+Router::get("/test/delete/[0-9]+", "TestController", "delete");

@@ -1,7 +1,7 @@
 <?php
 
 class Router{
-    public static function handle($method = 'GET', $path='/', $filename ='')
+    public static function handle($method = 'GET', $path='/', $controller ='', $action = null)
     {
         $currentMethod = $_SERVER['REQUEST_METHOD'];
         $currentUri = $_SERVER['REQUEST_URI'];
@@ -10,38 +10,40 @@ class Router{
         }
         $pattern = '#^'.$path.'$#siD';
         if(preg_match($pattern,$currentUri)){
-            if(is_callable($filename)){
-                $filename();
+            if(is_callable($controller)){
+                $controller();
             }else{
-                require_once $filename;
+                require_once "../controllers/$controller.php";
+                $controller = new $controller();
+                $controller->$action();
             }
             exit();
         }
         return false;
     }
 
-    public static function get( $path='/', $filename ='')
+    public static function get( $path='/', $controller ='', $action = null)
     {
-        return self::handle('GET',$path,$filename);
+        return self::handle('GET',$path,$controller, $action);
     }
 
-    public static function post( $path='/', $filename ='')
+    public static function post( $path='/', $controller ='', $action = null)
     {
-        return self::handle('POST',$path,$filename);
+        return self::handle('POST',$path,$controller, $action);
     }
 
-    public static function put( $path='/', $filename ='')
+    public static function put( $path='/', $controller ='', $action = null)
     {
-        return self::handle('PUT',$path,$filename);
+        return self::handle('PUT',$path,$controller, $action);
     }
 
-    public static function patch( $path='/', $filename ='')
+    public static function patch( $path='/', $controller ='', $action = null)
     {
-        return self::handle('PATCH',$path,$filename);
+        return self::handle('PATCH',$path,$controller, $action);
     }
 
-    public static function delete( $path='/', $filename ='')
+    public static function delete( $path='/', $controller ='', $action = null)
     {
-        return self::handle('DELETE',$path,$filename);
+        return self::handle('DELETE',$path,$controller, $action);
     }
 }
